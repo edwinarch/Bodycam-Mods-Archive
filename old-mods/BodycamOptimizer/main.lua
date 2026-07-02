@@ -7,7 +7,7 @@
 -- "Balanced"
 -- "Performance"
 -- "Ultra Performance"
-local Mode = "Balanced"
+local Mode = "Ultra Performance"
 
 -- Automatically apply the preset after entering the game
 local AutoApply = true
@@ -382,18 +382,18 @@ local function ApplyUltraPerformance() --4
     ----------------------------------------------------------
     -- Shadows
     ----------------------------------------------------------    
-    ExecCmd("r.ShadowQuality", 0)                          -- Overall shadow quality
-    ExecCmd("r.Shadow.DistanceScale", 0)               -- Shadow render distance
-    ExecCmd("r.Shadow.CSM.MaxCascades", 0)                -- Cascaded shadow levels
-    ExecCmd("r.Shadow.MaxCSMResolution", 1024)            -- Shadow map resolution
-    ExecCmd("r.Shadow.RadiusThreshold", 0)             -- Shadow visibility threshold
+    ExecCmd("r.ShadowQuality", 4)                          -- Overall shadow quality  默认是0，但要用4
+    ExecCmd("r.Shadow.DistanceScale", 0.50)               -- Shadow render distance    默认是0，用0.50
+    ExecCmd("r.Shadow.CSM.MaxCascades", 1)                -- Cascaded shadow levels 默认是0
+    ExecCmd("r.Shadow.MaxCSMResolution", 4096)            -- Shadow map resolution 默认是1024
+    ExecCmd("r.Shadow.RadiusThreshold", 0.03)             -- Shadow visibility threshold 默认是0
     ExecCmd("r.Shadow.Denoiser", 0)                       -- Shadow denoiser
     ExecCmd("r.Shadow.Virtual.Enable", 0)                 -- Virtual Shadow Maps
     ExecCmd("r.Shadow.Virtual.SMRT.RayCountLocal", 0)     -- Local shadow ray count
     ExecCmd("r.Shadow.Virtual.SMRT.RayCountDirectional", 0) -- Directional shadow ray count
-    ExecCmd("r.Shadow.Virtual.Clipmap.FirstLevel", 10)     -- First virtual shadow clipmap level
+    ExecCmd("r.Shadow.Virtual.Clipmap.FirstLevel", 8)     -- First virtual shadow clipmap level --
     ExecCmd("r.Shadow.Virtual.Clipmap.FirstCoarseLevel", 32) -- First coarse clipmap level
-    ExecCmd("r.Shadow.NaniteLODBias", 0)                  -- Nanite shadow LOD bias    
+    ExecCmd("r.Shadow.NaniteLODBias", 3)                  -- Nanite shadow LOD bias 默认是0 
     ----------------------------------------------------------
     -- Nanite
     ----------------------------------------------------------
@@ -403,7 +403,7 @@ local function ApplyUltraPerformance() --4
     ExecCmd("r.Nanite.ShadeBinningMode", 1)              -- Nanite shading mode
         
     ----------------------------------------------------------
-    -- Foliage
+    -- Foliage（植被）
     ----------------------------------------------------------
     ExecCmd("foliage.OnlyLOD", 0)                       -- Force a specific foliage LOD
     ExecCmd("foliage.DitheredLOD", 1)                   -- Enable smooth LOD transitions
@@ -416,7 +416,7 @@ local function ApplyUltraPerformance() --4
     ExecCmd("r.Lumen.Reflections.Allow", 0)                           -- Enable Lumen reflections
     ExecCmd("r.Lumen.ScreenProbeGather.DownsampleFactor", 32)         -- Screen probe downsample factor
     ExecCmd("r.Lumen.ScreenProbeGather.ShortRangeAO", 0)              -- Short-range ambient occlusion
-    ExecCmd("r.Lumen.ScreenProbeGather.Temporal.MaxFramesAccumulated", 32) -- Temporal accumulation frames
+    ExecCmd("r.Lumen.ScreenProbeGather.Temporal.MaxFramesAccumulated", 64) -- Temporal accumulation frames --默认32
     ExecCmd("r.Lumen.HardwareRayTracing", 0)                          -- Hardware ray tracing
 
     ----------------------------------------------------------
@@ -427,7 +427,7 @@ local function ApplyUltraPerformance() --4
     ----------------------------------------------------------
     -- View Distance
     ----------------------------------------------------------
-    ExecCmd("r.StaticMeshLODDistanceScale", 1)           -- Static mesh LOD distance scale
+    ExecCmd("r.StaticMeshLODDistanceScale", 0.25)           -- Static mesh LOD distance scale 默认是1
 
     ----------------------------------------------------------
     -- Post Processing
@@ -442,7 +442,7 @@ local function ApplyUltraPerformance() --4
     ----------------------------------------------------------
     ExecCmd("r.VolumetricCloud", 0)              -- Volumetric cloud rendering
     ExecCmd("r.LightShaftQuality", 0)            -- Light shaft quality
-    ExecCmd("r.LightFunctionQuality", 2)         -- Light function quality
+    ExecCmd("r.LightFunctionQuality", 1)         -- Light function quality 默认2
 
     ----------------------------------------------------------
     -- Anti-Aliasing
@@ -553,25 +553,32 @@ MapOverrides["Level /Game/Map/RussianBuilding/RussianBuilding.RussianBuilding:Pe
     ["Vanilla Graphics"] = {
 
         ["r.Lumen.HardwareRayTracing"] = 1,  
+        ["r.Shadow.DistanceScale"] = 0.16,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 1024, --防止透光     
 
     },
 
     ["Balanced"] = {
 
         ["r.Lumen.HardwareRayTracing"] = 1,
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光     
 
     },
 
     ["Performance"] = {
 
         ["r.Lumen.HardwareRayTracing"] = 0,
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光     
 
     },
 
     ["Ultra Performance"] = {
 
         ["r.Lumen.HardwareRayTracing"] = 0,
-
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光     
     },  --只改了颜色改善
 
 }
@@ -666,25 +673,33 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
     ["Vanilla Graphics"] = {
 
         ["r.EyeAdaptationQuality"] = 1,
-
+        ["r.Shadow.DistanceScale"] = 0.16,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 1024, --防止透光
+        
     },
 
     ["Balanced"] = {
 
         ["r.EyeAdaptationQuality"] = 1,
-
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+        
     },
 
     ["Performance"] = {
 
         ["r.EyeAdaptationQuality"] = 1,
-
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+    
     },
 
     ["Ultra Performance"] = {
 
         ["r.EyeAdaptationQuality"] = 0,
-
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+        
     },
 
 }
