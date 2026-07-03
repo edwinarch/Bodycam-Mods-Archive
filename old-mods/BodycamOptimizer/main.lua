@@ -171,22 +171,12 @@ local function ApplyVanilla() -- point-1
     ExecCmd("r.LightFunctionQuality", 2)         -- Light function quality
 
     ----------------------------------------------------------
-    -- Anti-Aliasing
+    -- 添加 / 自定义
     ----------------------------------------------------------
-    
-    -- No anti-aliasing settings. 
-
-    ----------------------------------------------------------
-    -- Textures
-    ----------------------------------------------------------
-    
-    -- No texture settings.
-
-    ----------------------------------------------------------
-    -- Misc
-    ----------------------------------------------------------
-
-    -- No miscellaneous settings.
+    --不知道
+    ExecCmd("foliage.DensityScale", 1.0) 
+    --降低整个画质来提升帧率
+    ExecCmd("r.ScreenPercentage",100)
 
 end
 
@@ -272,16 +262,12 @@ local function ApplyBalanced() --2
     ExecCmd("r.LightFunctionQuality", 2)         -- Light function quality
 
     ----------------------------------------------------------
-    -- Anti-Aliasing
+    -- 添加 / 自定义
     ----------------------------------------------------------
-
-    ----------------------------------------------------------
-    -- Textures
-    ----------------------------------------------------------
-
-    ----------------------------------------------------------
-    -- Misc
-    ----------------------------------------------------------
+    --不知道
+    ExecCmd("foliage.DensityScale", 1.0) 
+    --降低整个画质来提升帧率
+    ExecCmd("r.ScreenPercentage", 95)
 
 end
 
@@ -366,16 +352,12 @@ local function ApplyPerformance() --3
     ExecCmd("r.LightFunctionQuality", 2)         -- Light function quality
 
     ----------------------------------------------------------
-    -- Anti-Aliasing
+    -- 添加 / 自定义
     ----------------------------------------------------------
-
-    ----------------------------------------------------------
-    -- Textures
-    ----------------------------------------------------------
-
-    ----------------------------------------------------------
-    -- Misc
-    ----------------------------------------------------------
+    --不知道
+    ExecCmd("foliage.DensityScale", 1.0) 
+    --降低整个画质来提升帧率
+    ExecCmd("r.ScreenPercentage",90)
 
 end
 
@@ -423,7 +405,7 @@ local function ApplyUltraPerformance() --4
     ----------------------------------------------------------
     ExecCmd("foliage.OnlyLOD", 0)                       -- Force a specific foliage LOD
     ExecCmd("foliage.DitheredLOD", 1)                   -- Enable smooth LOD transitions
-    ExecCmd("foliage.LODDistanceScale", 1)              -- Foliage LOD distance scale
+    ExecCmd("foliage.LODDistanceScale", 2)              -- Foliage LOD distance scale
     ExecCmd("foliage.MinimumScreenSize", 0.000005)      -- Minimum foliage screen size
 
     ----------------------------------------------------------
@@ -432,7 +414,7 @@ local function ApplyUltraPerformance() --4
     ExecCmd("r.Lumen.Reflections.Allow", 0)                           -- Enable Lumen reflections
     ExecCmd("r.Lumen.ScreenProbeGather.DownsampleFactor", 32)         -- Screen probe downsample factor
     ExecCmd("r.Lumen.ScreenProbeGather.ShortRangeAO", 0)              -- Short-range ambient occlusion
-    ExecCmd("r.Lumen.ScreenProbeGather.Temporal.MaxFramesAccumulated", 64) -- Temporal accumulation frames --默认32
+    ExecCmd("r.Lumen.ScreenProbeGather.Temporal.MaxFramesAccumulated", 32) -- Temporal accumulation frames --默认32
     ExecCmd("r.Lumen.HardwareRayTracing", 0)                          -- Hardware ray tracing
 
     ----------------------------------------------------------
@@ -461,16 +443,12 @@ local function ApplyUltraPerformance() --4
     ExecCmd("r.LightFunctionQuality", 1)         -- Light function quality 默认2
 
     ----------------------------------------------------------
-    -- Anti-Aliasing
+    -- 添加 / 自定义
     ----------------------------------------------------------
-
-    ----------------------------------------------------------
-    -- Textures
-    ----------------------------------------------------------
-
-    ----------------------------------------------------------
-    -- Misc
-    ----------------------------------------------------------
+    --不知道
+    ExecCmd("foliage.DensityScale", 1.0) 
+    --降低整个画质来提升帧率
+    ExecCmd("r.ScreenPercentage",85)
 
 end
 
@@ -516,7 +494,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Ultra Performance"] = {
 
-        ["r.ShadowQuality"] = 0, --4
+        ["r.ShadowQuality"] = 4, --4
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
         ["r.Shadow.DistanceScale"] = 0.16,
@@ -533,40 +511,71 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
 
     ["Vanilla Graphics"] = {
 
-        --["r.LightFunctionQuality"] = 2,
-        --["r.VolumetricCloud"] = 1,
-        ["r.ShadowQuality"] = 0,
+        ["r.LightFunctionQuality"] = 2,
+        ["r.VolumetricCloud"] = 1,
+
+        --path  article 1
+        ["foliage.OnlyLOD"] = -1,
+        --path resolution 2
+        ["foliage.DensityScale"] = 1.0,
+        --path recover article distance 3
+        ["foliage.LODDistanceScale"] = 1,
+        --low resolition +fps
+        ["r.ScreenPercentage"] = 100,
 
     },
 
     ["Balanced"] = {
 
-        --["r.LightFunctionQuality"] = 2,
-        --["r.VolumetricCloud"] = 1,
-        ["r.ShadowQuality"] = 0,
+        ["r.LightFunctionQuality"] = 2,
+        ["r.VolumetricCloud"] = 1,
+
+        --path article 1
+        ["foliage.OnlyLOD"] = -1,
+        --path resolution 2
+        ["foliage.DensityScale"] = 0,
+        --path recover article distance 3
+        ["foliage.LODDistanceScale"] = 0.8,
+        --low resolition +fps
+        ["r.ScreenPercentage"] = 90,
 
     },
 
     ["Performance"] = {
 
-        --["r.LightFunctionQuality"] = 2,
-        --["r.VolumetricCloud"] = 0,
-        ["r.ShadowQuality"] = 0,
+        ["r.LightFunctionQuality"] = 2,
+
+        --path article 1
+        ["foliage.OnlyLOD"] = 0,
+        --path resolution 2
+        ["foliage.DensityScale"] = 0,
+        --path recover article distance 3
+        ["foliage.LODDistanceScale"] = 0.5,
+        --low resolition +fps
+        ["r.ScreenPercentage"] = 80,
 
     },
 
     ["Ultra Performance"] = {
 
-        --["r.LightFunctionQuality"] = 2,
-        --["r.VolumetricCloud"] = 0,
-        --["r.ShadowQuality"] = 0,
+        ["r.LightFunctionQuality"] = 2,
+        ["r.VolumetricCloud"] = 0,
+
+        --path article 1
+        ["foliage.OnlyLOD"] = 0,
+        --path resolution 2
+        ["foliage.DensityScale"] = 0,
+        --path recover article distance 3
+        ["foliage.LODDistanceScale"] = 0.2,
+        --low resolition +fps
+        ["r.ScreenPercentage"] = 70,
 
     },
 
 }
 
 ----------------------------------------------------------
--- RussianBuilding
+-- Russian-Building
 ----------------------------------------------------------
 MapOverrides["Level /Game/Map/RussianBuilding/RussianBuilding.RussianBuilding:PersistentLevel"] = {
 
@@ -588,7 +597,7 @@ MapOverrides["Level /Game/Map/RussianBuilding/RussianBuilding.RussianBuilding:Pe
 
     ["Performance"] = {
 
-        ["r.Lumen.HardwareRayTracing"] = 0,
+        ["r.Lumen.HardwareRayTracing"] = 1,
         ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
         ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光     
 
@@ -596,7 +605,7 @@ MapOverrides["Level /Game/Map/RussianBuilding/RussianBuilding.RussianBuilding:Pe
 
     ["Ultra Performance"] = {
 
-        ["r.Lumen.HardwareRayTracing"] = 0,
+        ["r.Lumen.HardwareRayTracing"] = 1,
         ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
         ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光     
     },  --只改了颜色改善
@@ -680,7 +689,6 @@ MapOverrides["Level /Game/Map/BombHouse/BombHouse.BombHouse:PersistentLevel"] = 
     ["Ultra Performance"] = {
 
         ["r.EyeAdaptationQuality"] = 1, --0
-        ["r.ShadowQuality"] = 0, --4
 
     },
 
@@ -694,6 +702,7 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
     ["Vanilla Graphics"] = {
 
         ["r.EyeAdaptationQuality"] = 1,
+        --patch
         ["r.Shadow.DistanceScale"] = 0.16,  --增加远距离性
         ["r.Shadow.MaxCSMResolution"] = 1024, --防止透光
         
@@ -702,6 +711,7 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
     ["Balanced"] = {
 
         ["r.EyeAdaptationQuality"] = 1,
+        --patch
         ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
         ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
         
@@ -710,6 +720,7 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
     ["Performance"] = {
 
         ["r.EyeAdaptationQuality"] = 1,
+        --patch
         ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
         ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
     
@@ -717,11 +728,11 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
 
     ["Ultra Performance"] = {
 
-        --["r.EyeAdaptationQuality"] = 0,
-        --["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
-        --["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
-        ["r.ShadowQuality"] = 0,
-        
+        ["r.EyeAdaptationQuality"] = 1,
+        --patch
+        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+
     },
 
 }
@@ -831,7 +842,6 @@ MapOverrides["Level /Game/Map/TransitionMap/TransitionMap.TransitionMap:Persiste
     },
 
 }
-
 
 
 ----------------------------------------------------------
