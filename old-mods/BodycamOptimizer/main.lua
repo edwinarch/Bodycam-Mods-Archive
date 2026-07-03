@@ -81,6 +81,22 @@ local PendingMapReload = false
 
 
 ----------------------------------------------------------
+-- Preset Index
+----------------------------------------------------------
+local PresetIndex = {
+
+    ["Vanilla Graphics"] = 1,
+
+    ["Balanced"] = 2,
+
+    ["Performance"] = 3,
+
+    ["Ultra Performance"] = 4,
+
+}
+
+
+----------------------------------------------------------
 -- Graphics Presets
 ----------------------------------------------------------
 ------------- # PRESET 1 / 4 # -------------
@@ -470,7 +486,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Vanilla Graphics"] = {
 
-        ["r.ShadowQuality"] = 3,
+        ["r.ShadowQuality"] = 3, --3
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 1024,
         ["r.Shadow.DistanceScale"] = 0.16,
@@ -500,7 +516,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Ultra Performance"] = {
 
-        ["r.ShadowQuality"] = 4,
+        ["r.ShadowQuality"] = 0, --4
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
         ["r.Shadow.DistanceScale"] = 0.16,
@@ -517,29 +533,33 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
 
     ["Vanilla Graphics"] = {
 
-        ["r.LightFunctionQuality"] = 2,
-        ["r.VolumetricCloud"] = 1,
+        --["r.LightFunctionQuality"] = 2,
+        --["r.VolumetricCloud"] = 1,
+        ["r.ShadowQuality"] = 0,
 
     },
 
     ["Balanced"] = {
 
-        ["r.LightFunctionQuality"] = 2,
-        ["r.VolumetricCloud"] = 1,
+        --["r.LightFunctionQuality"] = 2,
+        --["r.VolumetricCloud"] = 1,
+        ["r.ShadowQuality"] = 0,
 
     },
 
     ["Performance"] = {
 
-        ["r.LightFunctionQuality"] = 2,
-        ["r.VolumetricCloud"] = 0,
+        --["r.LightFunctionQuality"] = 2,
+        --["r.VolumetricCloud"] = 0,
+        ["r.ShadowQuality"] = 0,
 
     },
 
     ["Ultra Performance"] = {
 
-        ["r.LightFunctionQuality"] = 2,
-        ["r.VolumetricCloud"] = 0,
+        --["r.LightFunctionQuality"] = 2,
+        --["r.VolumetricCloud"] = 0,
+        --["r.ShadowQuality"] = 0,
 
     },
 
@@ -659,7 +679,8 @@ MapOverrides["Level /Game/Map/BombHouse/BombHouse.BombHouse:PersistentLevel"] = 
 
     ["Ultra Performance"] = {
 
-        ["r.EyeAdaptationQuality"] = 0,
+        ["r.EyeAdaptationQuality"] = 1, --0
+        ["r.ShadowQuality"] = 0, --4
 
     },
 
@@ -696,9 +717,10 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
 
     ["Ultra Performance"] = {
 
-        ["r.EyeAdaptationQuality"] = 0,
-        ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
-        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+        --["r.EyeAdaptationQuality"] = 0,
+        --["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
+        --["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+        ["r.ShadowQuality"] = 0,
         
     },
 
@@ -810,26 +832,13 @@ MapOverrides["Level /Game/Map/TransitionMap/TransitionMap.TransitionMap:Persiste
 
 }
 
-----------------------------------------------------------
--- Map Detection
-----------------------------------------------------------
-NotifyOnNewObject("/Script/Engine.Level", function(ConstructedObject)
-
-    LastLevelLoad = os.clock()
-
-    local RecognizedLevel = ConstructedObject:GetFullName()
-
-    CurrentMap = RecognizedLevel
-
-    CurrentMapOverride = MapOverrides[RecognizedLevel]
-
-end)
 
 
 ----------------------------------------------------------
 -- Auto Apply
 ----------------------------------------------------------
-
+local ApplyCurrentPreset
+local ApplyMapOverrides
 
 
 ----------------------------------------------------------
@@ -837,7 +846,10 @@ end)
 --
 -- Applies the graphics preset selected in Configuration.
 ----------------------------------------------------------
-local function ApplyCurrentPreset()
+ApplyCurrentPreset = function()
+
+    print("[Preset] ApplyCurrentPreset")
+    print("[Preset] Mode = " .. tostring(Mode))
 
     if Mode == "Vanilla Graphics" then
 
@@ -857,10 +869,11 @@ local function ApplyCurrentPreset()
 
     end
 
-    -- Apply map-specific overrides
     ApplyMapOverrides()
 
     CurrentPreset = Mode
+
+    print("[Preset] Finished")
 
 end
 
@@ -882,19 +895,41 @@ end
 --
 -- Applies map-specific console commands after the preset.
 ----------------------------------------------------------
-local function ApplyMapOverrides()
+ApplyMapOverrides = function()
+
+    print("[Override] Begin")
+
+    print("[Override] CurrentMap = " .. tostring(CurrentMap))
 
     if not CurrentMapOverride then
+
+        print("[Override] CurrentMapOverride = nil")
+
         return
+
     end
 
-    for Command, Value in pairs(CurrentMapOverride) do
-        ExecCmd(Command, Value)
+    local Override = CurrentMapOverride[Mode]
+
+    if not Override then
+
+        print("[Override] No Override For Mode: " .. tostring(Mode))
+
+        return
+
     end
+
+    for Command, Value in pairs(Override) do
+
+        print("[Override]", Command, Value)
+
+        ExecCmd(Command, Value)
+
+    end
+
+    print("[Override] End")
 
 end
-
-
 ----------------------------------------------------------
 -- Task Queue
 --
@@ -906,8 +941,8 @@ local function SubmitTask(Task)
     local World = GetWorld()
 
     if World
-    and World:IsValid()
-    and World.PersistentLevel then
+        and World:IsValid()
+        and World.PersistentLevel then
 
         return Task()
 
@@ -958,13 +993,23 @@ end
 ----------------------------------------------------------
 local function StartAutoApply()
 
+    print("[Auto] StartAutoApply")
+
     if not AutoApply then
+
+        print("[Auto] Disabled")
+
         return
+
     end
 
     ExecuteWithDelay(AutoApplyDelay * 1000, function()
 
+        print("[Auto] Delay Finished")
+
         SubmitTask(function()
+
+            print("[Auto] SubmitTask")
 
             ApplyCurrentPreset()
 
@@ -976,10 +1021,50 @@ end
 
 
 ----------------------------------------------------------
--- Startup
+-- Map Detection
 ----------------------------------------------------------
-StartAutoApply()
+NotifyOnNewObject("/Script/Engine.Level", function(ConstructedObject)
 
+    local RecognizedLevel = ConstructedObject:GetFullName()
+
+    print("--------------------------------")
+    print("[Map] Notify")
+    print("[Map] " .. RecognizedLevel)
+
+    LastLevelLoad = os.clock()
+
+    local Override = MapOverrides[RecognizedLevel]
+
+    if Override then
+
+        print("[Map] Override Found")
+
+        CurrentMap = RecognizedLevel
+        CurrentMapOverride = Override
+
+        if not IsInitialized then
+
+            print("[Map] First Init")
+
+            IsInitialized = true
+
+            StartAutoApply()
+
+        else
+
+            print("[Map] ApplyCurrentPreset")
+
+            ApplyCurrentPreset()
+
+        end
+
+    else
+
+        print("[Map] No Override (Ignored)")
+
+    end
+
+end)
 
 ----------------------------------------------------------
 -- Keybinds
@@ -998,4 +1083,4 @@ end)
 
 RegisterKeyBind(Key.F4, function()
     SetPreset("Ultra Performance")
-end)
+end)    
