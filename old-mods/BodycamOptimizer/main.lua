@@ -22,6 +22,13 @@ local AutoHotkeyStartupDelay = 7000
 local AutoHotkeyPressDelay = 500
 
 
+------------------------------------------------------------------------------------------------------------------------------
+--  开发者：   QQ 1598395898    / QQ 672095630
+--  授权声明： 允许个人学习、修改与二次扩展。
+--  版权限制： 未经允许禁止用于任何商业牟利项目。署名权归原作者所有。
+------------------------------------------------------------------------------------------------------------------------------
+
+
 ----------------------------------------------------------
 -- Auto Hotkey
 --
@@ -403,7 +410,7 @@ local function ApplyUltraPerformance() --4
     -- Shadows
     ----------------------------------------------------------    
     ExecCmd("r.ShadowQuality", 3)                          -- Overall shadow quality  默认是0，但要用4
-    ExecCmd("r.Shadow.DistanceScale", 0.50)               -- Shadow render distance    默认是0，用0.50
+    ExecCmd("r.Shadow.DistanceScale", 0.64)               -- Shadow render distance    默认是0，用0.50
     ExecCmd("r.Shadow.CSM.MaxCascades", 1)                -- Cascaded shadow levels 默认是0
     ExecCmd("r.Shadow.MaxCSMResolution", 4096)            -- Shadow map resolution 默认是1024
     ExecCmd("r.Shadow.RadiusThreshold", 0.03)             -- Shadow visibility threshold 默认是0
@@ -489,8 +496,10 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
         ["r.ShadowQuality"] = 2, --5
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 1024,
-        ["r.Shadow.DistanceScale"] = 0.16,
+        ["r.Shadow.DistanceScale"] = 1.0,
         ["r.VolumetricCloud"] = 1,
+        --up fps 1
+        ["r.ScreenPercentage"] = 100,
 
     },
 
@@ -499,8 +508,10 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
         ["r.ShadowQuality"] = 2,
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
-        ["r.Shadow.DistanceScale"] = 1024,
+        ["r.Shadow.DistanceScale"] = 1.0,
         ["r.VolumetricCloud"] = 1,
+        --up fps 1
+        ["r.ScreenPercentage"] = 75,
 
     },
 
@@ -509,8 +520,10 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
         ["r.ShadowQuality"] = 2,
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
-        ["r.Shadow.DistanceScale"] = 1024,
+        ["r.Shadow.DistanceScale"] = 1.0,
         ["r.VolumetricCloud"] = 1,
+        --up fps 1
+        ["r.ScreenPercentage"] = 75,
 
     },
 
@@ -521,6 +534,8 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
         ["r.Shadow.MaxCSMResolution"] = 4096,
         ["r.Shadow.DistanceScale"] = 0.16,
         ["r.VolumetricCloud"] = 0,
+        --up fps 1
+        ["r.ScreenPercentage"] = 75,
 
     },
 
@@ -544,6 +559,10 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["foliage.LODDistanceScale"] = 1,
         --low resolition +fps 4
         ["r.ScreenPercentage"] = 100,
+        --path xaa 5
+        ["r.Shadow.Virtual.Enable"] = 1,
+        -- up fps 6
+        ["r.ShadowQuality"] = 5,
 
     },
 
@@ -560,21 +579,30 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["foliage.LODDistanceScale"] = 0.8,
         --low resolition +fps 4
         ["r.ScreenPercentage"] = 90,
+        --path xaa 5
+        ["r.Shadow.Virtual.Enable"] = 1,
+        -- up fps 6
+        ["r.ShadowQuality"] = 4,
 
     },
 
     ["Performance"] = {
 
         ["r.LightFunctionQuality"] = 2,
+        ["r.VolumetricCloud"] = 0,
 
         --path article 1
-        ["foliage.OnlyLOD"] = 0,
+        ["foliage.OnlyLOD"] = -1,
         --path resolution 2
         ["foliage.DensityScale"] = 0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.5,
         --low resolition +fps 4
         ["r.ScreenPercentage"] = 80,
+        --path xaa 5
+        ["r.Shadow.Virtual.Enable"] = 1,
+        -- up fps 6
+        ["r.ShadowQuality"] = 2,
 
     },
 
@@ -584,13 +612,17 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["r.VolumetricCloud"] = 0,
 
         --path article 1
-        ["foliage.OnlyLOD"] = 0,
+        ["foliage.OnlyLOD"] = -1,
         --path resolution 2
         ["foliage.DensityScale"] = 0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.2,
         --low resolition +fps 4
         ["r.ScreenPercentage"] = 70,
+        --path xaa 5
+        ["r.Shadow.Virtual.Enable"] = 1,
+        -- up fps 6
+        ["r.ShadowQuality"] = 2,
 
     },
 
@@ -760,6 +792,53 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
 }
 
 ----------------------------------------------------------
+-- Asylum    这个文件夹跟其他不一样注意！   
+----------------------------------------------------------
+MapOverrides["Level /Game/Asylum/Maps/Asylum.Asylum:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --low resolition +fps 1
+        ["r.ScreenPercentage"] = 100,
+        --realist zombie hospital crazy 2 
+        ["r.ShadowQuality"] = 5,
+        ["r.Shadow.DistanceScale"] = 1,
+
+    },
+
+    ["Balanced"] = {
+
+        --low resolition +fps 1
+        ["r.ScreenPercentage"] = 90,
+        --realist shadow 2 
+        ["r.ShadowQuality"] = 4,
+        ["r.Shadow.DistanceScale"] = 0.75,
+
+    },
+
+    ["Performance"] = {
+
+        --low resolition +fps 1
+        ["r.ScreenPercentage"] = 80,
+        --realist shadow 2 
+        ["r.ShadowQuality"] = 4,
+        ["r.Shadow.DistanceScale"] = 0.75,
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --low resolition +fps 1
+        ["r.ScreenPercentage"] = 70,
+        --realist shadow 2 
+        ["r.ShadowQuality"] = 4,
+        ["r.Shadow.DistanceScale"] = 0.75,
+        
+    },
+
+}
+
+----------------------------------------------------------
 -- Village
 ----------------------------------------------------------
 MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
@@ -774,6 +853,10 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.LODDistanceScale"] = 1,
         --low resolition +fps 3
         ["r.ScreenPercentage"] = 100,
+        --up fps 4
+        ["foliage.DensityScale"] = 1,
+        --relist ear 5
+        ["r.Shadow.DistanceScale"] = 1,
 
     },
 
@@ -787,6 +870,10 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.LODDistanceScale"] = 0.8,
         --low resolition +fps 3
         ["r.ScreenPercentage"] = 90,
+        --up fps 4
+        ["foliage.DensityScale"] = 1,
+        --relist ear 5
+        ["r.Shadow.DistanceScale"] = 0.80,
 
     },
 
@@ -800,6 +887,10 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.LODDistanceScale"] = 0.7,
         --low resolition +fps 3
         ["r.ScreenPercentage"] = 80,
+        --up fps 4
+        ["foliage.DensityScale"] = 0.8,
+        --relist ear 5
+        ["r.Shadow.DistanceScale"] = 0.75,
 
     },
 
@@ -813,6 +904,10 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.LODDistanceScale"] = 0.6,
         --low resolition +fps 3
         ["r.ScreenPercentage"] = 70,
+        --up fps 4
+        ["foliage.DensityScale"] = 0.5,
+        --relist ear 5
+        ["r.Shadow.DistanceScale"] = 0.75,
 
     },
 
