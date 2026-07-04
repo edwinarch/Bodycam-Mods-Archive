@@ -1256,7 +1256,7 @@ MapOverrides["Level /Game/Map/PublicPool/PublicPool.PublicPool:PersistentLevel"]
         --降低整个画质来提升帧率 1
         ["r.ScreenPercentage"] = 90,  
         --真实光照 2
-        ["r.ShadowQuality"] = 5,
+        ["r.ShadowQuality"] = 4,
         --防止远处发光 3
         ["r.Shadow.DistanceScale"] = 0.64,
 
