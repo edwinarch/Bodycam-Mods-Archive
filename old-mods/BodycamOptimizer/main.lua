@@ -107,10 +107,10 @@ local function ApplyVanilla() -- point-1
     ----------------------------------------------------------
     -- Shadows
     ----------------------------------------------------------    
-    ExecCmd("r.ShadowQuality", 3)                          -- Overall shadow quality
-    ExecCmd("r.Shadow.DistanceScale", 0.16)               -- Shadow render distance
-    ExecCmd("r.Shadow.CSM.MaxCascades", 3)                -- Cascaded shadow levels
-    ExecCmd("r.Shadow.MaxCSMResolution", 1024)            -- Shadow map resolution
+    ExecCmd("r.ShadowQuality", 5) --3                         -- Overall shadow quality
+    ExecCmd("r.Shadow.DistanceScale", 1)  -- 0.16             -- Shadow render distance
+    ExecCmd("r.Shadow.CSM.MaxCascades", 4)                -- Cascaded shadow levels
+    ExecCmd("r.Shadow.MaxCSMResolution", 1024)  -- 1024    -- Shadow map resolution
     ExecCmd("r.Shadow.RadiusThreshold", 0.05)             -- Shadow visibility threshold
     ExecCmd("r.Shadow.Denoiser", 2)                       -- Shadow denoiser
     ExecCmd("r.Shadow.Virtual.Enable", 1)                 -- Virtual Shadow Maps
@@ -288,7 +288,7 @@ local function ApplyPerformance() --3
     ----------------------------------------------------------
     -- Shadows
     ----------------------------------------------------------    
-    ExecCmd("r.ShadowQuality", 4)                          -- Overall shadow quality
+    ExecCmd("r.ShadowQuality", 3)                          -- Overall shadow quality
     ExecCmd("r.Shadow.DistanceScale", 0.64)               -- Shadow render distance
     ExecCmd("r.Shadow.CSM.MaxCascades", 1)                -- Cascaded shadow levels
     ExecCmd("r.Shadow.MaxCSMResolution", 8192)            -- Shadow map resolution
@@ -380,7 +380,7 @@ local function ApplyUltraPerformance() --4
     ----------------------------------------------------------
     -- Shadows
     ----------------------------------------------------------    
-    ExecCmd("r.ShadowQuality", 4)                          -- Overall shadow quality  默认是0，但要用4
+    ExecCmd("r.ShadowQuality", 3)                          -- Overall shadow quality  默认是0，但要用4
     ExecCmd("r.Shadow.DistanceScale", 0.50)               -- Shadow render distance    默认是0，用0.50
     ExecCmd("r.Shadow.CSM.MaxCascades", 1)                -- Cascaded shadow levels 默认是0
     ExecCmd("r.Shadow.MaxCSMResolution", 4096)            -- Shadow map resolution 默认是1024
@@ -440,7 +440,7 @@ local function ApplyUltraPerformance() --4
     ----------------------------------------------------------
     ExecCmd("r.VolumetricCloud", 0)              -- Volumetric cloud rendering
     ExecCmd("r.LightShaftQuality", 0)            -- Light shaft quality
-    ExecCmd("r.LightFunctionQuality", 1)         -- Light function quality 默认2
+    ExecCmd("r.LightFunctionQuality", 2)         -- Light function quality 默认2
 
     ----------------------------------------------------------
     -- 添加 / 自定义
@@ -464,7 +464,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Vanilla Graphics"] = {
 
-        ["r.ShadowQuality"] = 3, --3
+        ["r.ShadowQuality"] = 2, --5
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 1024,
         ["r.Shadow.DistanceScale"] = 0.16,
@@ -474,7 +474,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Balanced"] = {
 
-        ["r.ShadowQuality"] = 4,
+        ["r.ShadowQuality"] = 2,
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
         ["r.Shadow.DistanceScale"] = 1024,
@@ -484,7 +484,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Performance"] = {
 
-        ["r.ShadowQuality"] = 4,
+        ["r.ShadowQuality"] = 2,
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
         ["r.Shadow.DistanceScale"] = 1024,
@@ -494,7 +494,7 @@ MapOverrides["Level /Game/Map/Lobby/Lobby.Lobby:PersistentLevel"] = {
 
     ["Ultra Performance"] = {
 
-        ["r.ShadowQuality"] = 4, --4
+        ["r.ShadowQuality"] = 2, --4
         ["r.EyeAdaptationQuality"] = 1,
         ["r.Shadow.MaxCSMResolution"] = 4096,
         ["r.Shadow.DistanceScale"] = 0.16,
@@ -520,7 +520,7 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["foliage.DensityScale"] = 1.0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 1,
-        --low resolition +fps
+        --low resolition +fps 4
         ["r.ScreenPercentage"] = 100,
 
     },
@@ -536,7 +536,7 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["foliage.DensityScale"] = 0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.8,
-        --low resolition +fps
+        --low resolition +fps 4
         ["r.ScreenPercentage"] = 90,
 
     },
@@ -551,7 +551,7 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["foliage.DensityScale"] = 0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.5,
-        --low resolition +fps
+        --low resolition +fps 4
         ["r.ScreenPercentage"] = 80,
 
     },
@@ -567,7 +567,7 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["foliage.DensityScale"] = 0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.2,
-        --low resolition +fps
+        --low resolition +fps 4
         ["r.ScreenPercentage"] = 70,
 
     },
@@ -731,7 +731,7 @@ MapOverrides["Level /Game/Map/Paintball/Paintball.Paintball:PersistentLevel"] = 
         ["r.EyeAdaptationQuality"] = 1,
         --patch
         ["r.Shadow.DistanceScale"] = 0.64,  --增加远距离性
-        ["r.Shadow.MaxCSMResolution"] = 8192, --防止透光
+        ["r.Shadow.MaxCSMResolution"] = 4096, --防止透光
 
     },
 
@@ -746,11 +746,25 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
 
         ["foliage.OnlyLOD"] = -1,
 
+        --path resolution 1
+        ["foliage.DensityScale"] = 1.0,
+        --path recover article distance 2
+        ["foliage.LODDistanceScale"] = 1,
+        --low resolition +fps 3
+        ["r.ScreenPercentage"] = 100,
+
     },
 
     ["Balanced"] = {
 
         ["foliage.OnlyLOD"] = -1,
+
+        --path resolution 1
+        ["foliage.DensityScale"] = 0,
+        --path recover article distance 2
+        ["foliage.LODDistanceScale"] = 0.8,
+        --low resolition +fps 3
+        ["r.ScreenPercentage"] = 90,
 
     },
 
@@ -758,11 +772,25 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
 
         ["foliage.OnlyLOD"] = -1,
 
+        --path resolution 1
+        ["foliage.DensityScale"] = 0,
+        --path recover article distance 2
+        ["foliage.LODDistanceScale"] = 0.7,
+        --low resolition +fps 3
+        ["r.ScreenPercentage"] = 80,
+
     },
 
     ["Ultra Performance"] = {
 
-        ["foliage.OnlyLOD"] = -1,
+        ["foliage.OnlyLOD"] = -1,    --   -1
+
+        --path resolution 1
+        ["foliage.DensityScale"] = 0,
+        --path recover article distance 2
+        ["foliage.LODDistanceScale"] = 0.6,
+        --low resolition +fps 3
+        ["r.ScreenPercentage"] = 70,
 
     },
 
@@ -843,6 +871,241 @@ MapOverrides["Level /Game/Map/TransitionMap/TransitionMap.TransitionMap:Persiste
 
 }
 
+----------------------------------------------------------
+-- WornHouse        readme.md 1
+----------------------------------------------------------
+MapOverrides["Level /Game/Map/WornHouse/WornHouse.WornHouse:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 1,
+       
+    },
+
+    ["Balanced"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 0.64,    
+
+    },
+
+    ["Performance"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 0.64,      
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 0.64,
+
+    },
+
+} 
+
+----------------------------------------------------------
+-- Hospital        readme.md 2
+----------------------------------------------------------
+MapOverrides["Level /Game/Map/Hospital/Hospital.Hospital:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 1,
+       
+    },
+
+    ["Balanced"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 0.64,    
+
+    },
+
+    ["Performance"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 0.64,      
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --path
+        ["r.Shadow.DistanceScale"] = 0.64,
+
+    },
+
+} 
+
+----------------------------------------------------------
+-- Rome        readme.md 3
+----------------------------------------------------------
+MapOverrides["Level /Game/Map/Rome/Rome.Rome:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --path lumen 1
+        ["r.ShadowQuality"] = 5,
+        --light lum 2   
+        ["r.LightShaftQuality"] = 1,
+       
+    },
+
+    ["Balanced"] = {
+
+        --path lumen 1
+        ["r.ShadowQuality"] =4,  
+        --light lum 2   
+        ["r.LightShaftQuality"] = 1,  
+
+    },
+
+    ["Performance"] = {
+
+        --path lumen 1
+        ["r.ShadowQuality"] = 4,
+        --light lum 2   
+        ["r.LightShaftQuality"] = 1,
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --path lumen 1
+        ["r.ShadowQuality"] = 4,
+        --light lum 2   
+        ["r.LightShaftQuality"] = 1,
+
+    },
+
+} 
+
+----------------------------------------------------------
+-- AirSoft        readme.md 4
+----------------------------------------------------------
+MapOverrides["Level /Game/Map/AirSoft/AirSoft.AirSoft:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --path lumen 1 
+        ["r.Shadow.DistanceScale"] = 1,
+        --path auto lumen 2
+        ["r.SSR.Quality"] = 3,
+        --path Denoiser 3
+        ["r.Shadow.Denoiser"] = 2,
+        --path 防止木板透光 4
+        ["r.Shadow.Virtual.Enable"] = 1,  
+        --降低整个画质来提升帧率
+        ["r.ScreenPercentage"] = 100,
+
+    },
+
+    ["Balanced"] = {
+
+        --path lumen 1 
+        ["r.Shadow.DistanceScale"] = 0.85,
+        --path auto lumen 2
+        ["r.SSR.Quality"] = 3,
+        --path Denoiser 3
+        ["r.Shadow.Denoiser"] = 1,
+        --path 防止木板透光 4
+        ["r.Shadow.Virtual.Enable"] = 1,  
+        --降低整个画质来提升帧率
+        ["r.ScreenPercentage"] = 90,
+
+    },
+
+    ["Performance"] = {
+
+        --path lumen 1 
+        ["r.Shadow.DistanceScale"] = 0.75,
+        --path auto lumen 2
+        ["r.SSR.Quality"] = 3,
+        --path Denoiser 3
+        ["r.Shadow.Denoiser"] = 1,
+        --path 防止木板透光 4
+        ["r.Shadow.Virtual.Enable"] = 1,
+        --降低整个画质来提升帧率
+        ["r.ScreenPercentage"] = 80,  
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --path lumen 1 
+        ["r.Shadow.DistanceScale"] = 0.75,
+        --path auto lumen 2
+        ["r.SSR.Quality"] = 3,
+        --path Denoiser 3
+        ["r.Shadow.Denoiser"] = 1,
+        --path 防止木板透光 4
+        ["r.Shadow.Virtual.Enable"] = 1,               
+        --降低整个画质来提升帧率
+        ["r.ScreenPercentage"] = 70,        
+
+    },
+
+} 
+
+----------------------------------------------------------
+-- Nick name: Backrooms        readme.md 5
+-- Low-level name/program name: TheBackrooms 
+-- 文件夹是Backrooms  文件名是TheBackrooms
+----------------------------------------------------------
+MapOverrides["Level /Game/Map/Backrooms/TheBackrooms.TheBackrooms:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 100,
+        --真实黑暗 2
+        ["r.ShadowQuality"] = 5,
+        --距离长赖不穿光 3
+        ["r.Shadow.DistanceScale"] = 1,
+        ["r.Shadow.MaxCSMResolution"] = 1024,
+
+    },
+
+    ["Balanced"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 90,
+        --真实黑暗 2
+        ["r.ShadowQuality"] = 4,
+        --距离长赖不穿光 3
+        ["r.Shadow.DistanceScale"] = 1,
+
+    },
+
+    ["Performance"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 80,  
+        --真实黑暗 2
+        ["r.ShadowQuality"] = 4,
+        --距离长赖不穿光 3
+        ["r.Shadow.DistanceScale"] = 1,
+        ["r.Shadow.MaxCSMResolution"] = 8192,
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 70,       
+        --真实黑暗 2
+        ["r.ShadowQuality"] = 4, 
+        --距离长赖不穿光 3
+        ["r.Shadow.DistanceScale"] = 1,
+        ["r.Shadow.MaxCSMResolution"] = 8192,
+
+    },
+
+} 
 
 ----------------------------------------------------------
 -- Auto Apply
@@ -940,6 +1203,8 @@ ApplyMapOverrides = function()
     print("[Override] End")
 
 end
+
+
 ----------------------------------------------------------
 -- Task Queue
 --
