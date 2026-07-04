@@ -15,6 +15,28 @@ local AutoApply = true
 -- Delay (seconds) before applying graphics settings
 local AutoApplyDelay = 6
 
+-- Wait after Bodycam starts (milliseconds)
+local AutoHotkeyStartupDelay = 7000
+
+-- Interval between the two presses (milliseconds)
+local AutoHotkeyPressDelay = 500
+
+
+----------------------------------------------------------
+-- Auto Hotkey
+--
+-- Automatically triggers a graphics preset after startup.
+-- This performs the same action as pressing the hotkey.
+----------------------------------------------------------
+local AutoHotkeyMode = "Ultra Performance"
+
+-- Available Modes:
+--
+-- "None"
+-- "Balanced"
+-- "Performance"
+-- "Ultra Performance"
+
 
 ----------------------------------------------------------
 -- Unreal Engine Helpers
@@ -1108,6 +1130,57 @@ MapOverrides["Level /Game/Map/Backrooms/TheBackrooms.TheBackrooms:PersistentLeve
 } 
 
 ----------------------------------------------------------
+-- PublicPool        readme.md 6
+----------------------------------------------------------
+MapOverrides["Level /Game/Map/PublicPool/PublicPool.PublicPool:PersistentLevel"] = {
+
+    ["Vanilla Graphics"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 100,
+        --真实光照 2
+        ["r.ShadowQuality"] = 5,
+        --防止远处发光 3
+        ["r.Shadow.DistanceScale"] = 1,
+
+    },
+
+    ["Balanced"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 95,
+        --真实光照 2
+        ["r.ShadowQuality"] = 5,
+        --防止远处发光 3
+        ["r.Shadow.DistanceScale"] = 0.64,
+
+    },
+
+    ["Performance"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 90,  
+        --真实光照 2
+        ["r.ShadowQuality"] = 5,
+        --防止远处发光 3
+        ["r.Shadow.DistanceScale"] = 0.64,
+
+    },
+
+    ["Ultra Performance"] = {
+
+        --降低整个画质来提升帧率 1
+        ["r.ScreenPercentage"] = 80,       
+        --真实光照 2
+        ["r.ShadowQuality"] = 4,
+        --防止远处发光 3
+        ["r.Shadow.DistanceScale"] = 0.64,
+
+    },
+
+} 
+
+----------------------------------------------------------
 -- Auto Apply
 ----------------------------------------------------------
 local ApplyCurrentPreset
@@ -1288,6 +1361,9 @@ local function StartAutoApply()
 
             ApplyCurrentPreset()
 
+            --auto run F2 or F3 or F4
+            RunAutoHotkey()
+
         end)
 
     end)
@@ -1359,3 +1435,45 @@ end)
 RegisterKeyBind(Key.F4, function()
     SetPreset("Ultra Performance")
 end)    
+
+
+----------------------------------------------------------
+-- Auto Hotkey
+----------------------------------------------------------
+local function RunAutoHotkey()
+
+    if AutoHotkeyMode == "None" then
+        return
+    end
+
+    local function Trigger()
+
+        if AutoHotkeyMode == "Balanced" then
+
+            SetPreset("Balanced")
+
+        elseif AutoHotkeyMode == "Performance" then
+
+            SetPreset("Performance")
+
+        elseif AutoHotkeyMode == "Ultra Performance" then
+
+            SetPreset("Ultra Performance")
+
+        end
+
+    end
+
+    ExecuteWithDelay(AutoHotkeyStartupDelay, function()
+
+        Trigger()
+
+        ExecuteWithDelay(AutoHotkeyPressDelay, function()
+
+            Trigger()
+
+        end)
+
+    end)
+
+end
