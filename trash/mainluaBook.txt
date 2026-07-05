@@ -1,0 +1,72 @@
+Configuration
+
+↓
+
+Unreal Engine Helpers
+
+↓
+
+Console Command Wrapper
+
+↓
+
+Runtime State
+
+↓
+
+Graphics Presets
+
+↓
+
+Map Overrides
+
+↓
+
+Map Detection
+
+↓
+
+Auto Apply
+    ├── ApplyCurrentPreset()
+    ├── ApplyMapOverrides()
+    ├── StartAutoApply()
+    └── ...
+
+↓
+
+Startup
+
+↓
+
+Keybinds
+
+
+
+
+
+
+
+
+
+
+
+★★★★★  Foliage（草木）
+★★★★★  Lumen（全局光照）
+★★★★★  Shadows（阴影）
+★★★★☆  Nanite
+★★★★☆  View Distance
+★★★☆☆  Reflections
+★★☆☆☆  Post Processing
+★★☆☆☆  Effects
+★☆☆☆☆  Misc
+
+
+
+r.MipMapLODBias=15
+
+
+
+
+
+
+

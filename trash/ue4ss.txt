@@ -1,0 +1,31 @@
+功能包括：
+
+🎮 自动降低 VRAM 占用
+🌫️ 关闭不必要的后处理
+💡 调整 Lumen
+🌳 降低远距离细节
+🧱 调整 Nanite
+📦 减少纹理压力
+
+
+
+Mode = "Balanced" 平衡
+画质和性能平衡。
+
+
+Mode = "Performance" 性能
+FPS 优先。
+关闭很多特效。
+RTX4050 6GB
+
+
+Mode = "UltraPerformance" 超性能
+专门给：
+GTX1050 4GB
+GTX1650 4GB
+RTX2050 4GB
+RTX3050 4GB
+或者显存特别紧张的时候。
+
+
+

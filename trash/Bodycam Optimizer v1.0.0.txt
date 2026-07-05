@@ -1,0 +1,14 @@
+Project Name:
+Bodycam Optimizer
+
+Version:
+v1.0.0
+
+Engine:
+Unreal Engine 5.5.x
+
+Framework:
+UE4SS v3.0.1
+
+Language:
+Lua
