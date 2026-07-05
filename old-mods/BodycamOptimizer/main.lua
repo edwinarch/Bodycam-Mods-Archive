@@ -388,7 +388,7 @@ local function ApplyPerformance() --3
     --降低整个画质来提升帧率
     ExecCmd("r.ScreenPercentage",90)
 
-end
+end 
 
 ------------- # PRESET 4 / 4 # -------------
 
@@ -578,7 +578,7 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.8,
         --low resolition +fps 4
-        ["r.ScreenPercentage"] = 90,
+        ["r.ScreenPercentage"] = 80,
         --path xaa 5
         ["r.Shadow.Virtual.Enable"] = 1,
         -- up fps 6
@@ -598,7 +598,7 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.5,
         --low resolition +fps 4
-        ["r.ScreenPercentage"] = 80,
+        ["r.ScreenPercentage"] = 70,
         --path xaa 5
         ["r.Shadow.Virtual.Enable"] = 1,
         -- up fps 6
@@ -612,13 +612,13 @@ MapOverrides["Level /Game/Map/CQB/CQB.CQB:PersistentLevel"] = {
         ["r.VolumetricCloud"] = 0,
 
         --path article 1
-        ["foliage.OnlyLOD"] = -1,
+        ["foliage.OnlyLOD"] = 0,
         --path resolution 2
         ["foliage.DensityScale"] = 0,
         --path recover article distance 3
         ["foliage.LODDistanceScale"] = 0.2,
         --low resolition +fps 4
-        ["r.ScreenPercentage"] = 70,
+        ["r.ScreenPercentage"] = 65,
         --path xaa 5
         ["r.Shadow.Virtual.Enable"] = 1,
         -- up fps 6
