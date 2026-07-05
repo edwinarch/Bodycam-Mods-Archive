@@ -857,6 +857,8 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.DensityScale"] = 1,
         --relist ear 5
         ["r.Shadow.DistanceScale"] = 1,
+        --realist shadow 6 
+        ["r.ShadowQuality"] = 5,
 
     },
 
@@ -874,6 +876,8 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.DensityScale"] = 1,
         --relist ear 5
         ["r.Shadow.DistanceScale"] = 0.80,
+        --realist shadow 6 
+        ["r.ShadowQuality"] = 3,
 
     },
 
@@ -891,6 +895,8 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.DensityScale"] = 0.8,
         --relist ear 5
         ["r.Shadow.DistanceScale"] = 0.75,
+        --realist shadow 6 
+        ["r.ShadowQuality"] = 2,
 
     },
 
@@ -908,6 +914,8 @@ MapOverrides["Level /Game/Map/Village/Village.Village:PersistentLevel"] = {
         ["foliage.DensityScale"] = 0.5,
         --relist ear 5
         ["r.Shadow.DistanceScale"] = 0.75,
+        --realist shadow 6 
+        ["r.ShadowQuality"] = 2,
 
     },
 
