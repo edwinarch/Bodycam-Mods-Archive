@@ -1521,58 +1521,6 @@ NotifyOnNewObject("/Script/Engine.Level", function(ConstructedObject)
 end)
 
 
----------------------------------------------------------- 
--- Face Mosaic 
-----------------------------------------------------------
-local FaceMosaicEnabled = false 
-local DynamicBlur = true
-local DepthOfFieldBlur = true
----------------------------------------------------------- 
--- Toggle Face Mosaic 
-----------------------------------------------------------
-local function ToggleFaceMosaic()
-
-    FaceMosaicEnabled = not FaceMosaicEnabled
-    DynamicBlur = not DynamicBlur
-    DepthOfFieldBlur = not DepthOfFieldBlur
-
-    
-
-    ExecCmd(
-        "r.AntiAliasingMethod",
-        DynamicBlur and 0 or 3
-    )
-
-    ExecCmd(
-        "r.Tonemapper.Sharpen",
-        DepthOfFieldBlur and 0 or 2
-    )
-
-end
-
-
-----------------------------------------------------------
--- Keybinds
-----------------------------------------------------------
-RegisterKeyBind(Key.F1, function()
-    SetPreset("Vanilla Graphics")
-end)
-
-RegisterKeyBind(Key.F2, function()
-    SetPreset("Balanced")
-end)
-
-RegisterKeyBind(Key.F3, function()
-    SetPreset("Performance")
-end)
-
-RegisterKeyBind(Key.F4, function()
-    SetPreset("Ultra Performance")
-end)    
-
-RegisterKeyBind(Key.F9, ToggleFaceMosaic)
-
-
 ----------------------------------------------------------
 -- Auto Hotkey
 ----------------------------------------------------------
@@ -1613,3 +1561,163 @@ local function RunAutoHotkey()
     end)
 
 end
+
+
+----------------------------------------------------------
+-- Face Mosaic
+----------------------------------------------------------
+local FaceMosaicEnabled = true
+local FaceMosaicState = true     -- 当前状态：true=有马赛克，false=无马赛克
+
+local BLUR_MATERIAL = "MaterialInstanceConstant /Game/Mosaic_Pixelization_Material_Pack/Mosaic_Pixelization_Materials/MIPP_BodycamMosaicEffect.MIPP_BodycamMosaicEffect"
+
+local function IsValid(Obj)
+    if not Obj then return false end
+    local ok, result = pcall(function() return Obj:IsValid() end)
+    return ok and result
+end
+
+local function FindInstances(Type)
+    if type(FindAllOf) ~= "function" then
+        return {}
+    end
+
+    local ok, Instances = pcall(function()
+        return FindAllOf(Type)
+    end)
+
+    if ok and Instances ~= nil then
+        return Instances
+    end
+
+    return {}
+end
+
+local function ProcessBlendables(Settings, TargetWeight)
+    if not Settings then return end
+    
+    local Blendables
+    pcall(function() Blendables = Settings.WeightedBlendables.Array end)
+    if not Blendables then return end
+    
+    local Count = 0
+    pcall(function() Count = Blendables:GetArrayNum() end)
+    
+    for i = 1, Count do
+        local Item = Blendables[i]
+        if Item and IsValid(Item.Object) then
+            local ok, path = pcall(function() return Item.Object:GetFullName() end)
+            
+            if ok and path == BLUR_MATERIAL then
+                if math.abs(Item.Weight - TargetWeight) > 0.001 then
+                    pcall(function()
+                        Blendables[i] = { Weight = TargetWeight, Object = Item.Object }
+                    end)
+                end
+            end
+        end
+    end
+end
+
+----------------------------------------------------------
+-- Update Face Mosaic
+----------------------------------------------------------
+local function UpdateFaceMosaic()
+
+    local Weight = FaceMosaicState and 1.0 or 0.0
+
+    for _, Type in ipairs({
+        "PostProcessVolume",
+        "PostProcessComponent",
+        "CameraComponent"
+    }) do
+
+        local Instances = FindInstances(Type)
+
+        for _, Obj in ipairs(Instances) do
+
+            if IsValid(Obj) then
+
+                ProcessBlendables(Obj.Settings, Weight)
+                ProcessBlendables(Obj.PostProcessSettings, Weight)
+
+            end
+
+        end
+
+    end
+
+    print("[Mosaic] Weight = " .. tostring(Weight))
+
+end
+
+----------------------------------------------------------
+-- Toggle Face Mosaic
+----------------------------------------------------------
+local function ToggleFaceMosaic()
+
+    -- 工具箱关闭了此功能
+    if not FaceMosaicEnabled then
+        return
+    end
+
+    FaceMosaicState = not FaceMosaicState
+
+    print("[Mosaic] Toggle")
+
+    UpdateFaceMosaic()
+
+    print("[Mosaic] " .. (FaceMosaicState and "Enabled" or "Disabled"))
+
+end
+
+
+
+----------------------------------------------------------
+-- Full motion blur is prohibited.全动态模糊禁止
+----------------------------------------------------------
+local FullDynamicBlurEnabled = true -- 工具箱控制是否启用F10功能
+local FullDynamicBlur = false -- 当前状态（false=默认开启模糊）
+
+local function ToggleFullDynamicBlur()
+
+    -- 功能被关闭，直接返回
+    if not FullDynamicBlurEnabled then
+        return
+    end
+
+    FullDynamicBlur = not FullDynamicBlur
+
+    ExecCmd(
+        "r.PostProcessing.DisableMaterials",
+        FullDynamicBlur and 0 or 1
+    )
+
+    print("[F10] Full Dynamic Blur " ..
+        (FullDynamicBlur and "Disabled" or "Enabled"))
+
+end
+
+
+----------------------------------------------------------
+-- Keybinds
+----------------------------------------------------------
+RegisterKeyBind(Key.F1, function()
+    SetPreset("Vanilla Graphics")
+end)
+
+RegisterKeyBind(Key.F2, function()
+    SetPreset("Balanced")
+end)
+
+RegisterKeyBind(Key.F3, function()
+    SetPreset("Performance")
+end)
+
+RegisterKeyBind(Key.F4, function()
+    SetPreset("Ultra Performance")
+end)    
+
+RegisterKeyBind(Key.F9, ToggleFaceMosaic)
+
+RegisterKeyBind(Key.F10, ToggleFullDynamicBlur)
