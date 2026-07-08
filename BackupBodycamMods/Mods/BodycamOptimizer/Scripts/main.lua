@@ -1578,7 +1578,7 @@ end
 ----------------------------------------------------------
 -- Face Mosaic
 ----------------------------------------------------------
-local FaceMosaicEnabled = true
+local FaceMosaicEnabled = false
 local FaceMosaicState = true     -- 当前状态：true=有马赛克，false=无马赛克
 
 local BLUR_MATERIAL = "MaterialInstanceConstant /Game/Mosaic_Pixelization_Material_Pack/Mosaic_Pixelization_Materials/MIPP_BodycamMosaicEffect.MIPP_BodycamMosaicEffect"
@@ -1688,7 +1688,7 @@ end
 ----------------------------------------------------------
 -- Full motion blur is prohibited.全动态模糊禁止
 ----------------------------------------------------------
-local FullDynamicBlurEnabled = true -- 工具箱控制是否启用F10功能
+local FullDynamicBlurEnabled = false -- 工具箱控制是否启用F10功能
 local FullDynamicBlur = false -- 当前状态（false=默认开启模糊）
 
 local function ToggleFullDynamicBlur()
