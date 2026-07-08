@@ -1203,6 +1203,7 @@ MapOverrides["Level /Game/Map/Backrooms/TheBackrooms.TheBackrooms:PersistentLeve
         ["r.ShadowQuality"] = 4,
         --距离长赖不穿光 3
         ["r.Shadow.DistanceScale"] = 1,
+        ["r.Shadow.MaxCSMResolution"] = 8192,
 
     },
 
@@ -1245,7 +1246,9 @@ MapOverrides["Level /Game/Map/PublicPool/PublicPool.PublicPool:PersistentLevel"]
         ["r.ShadowQuality"] = 5,
         --防止远处发光 3
         ["r.Shadow.DistanceScale"] = 1,
-
+        --远距离渲染 4
+        ["r.Shadow.RadiusThreshold"] = 0.05,
+        ["r.Shadow.MaxCSMResolution"] = 1024,
     },
 
     ["Balanced"] = {
@@ -1256,6 +1259,9 @@ MapOverrides["Level /Game/Map/PublicPool/PublicPool.PublicPool:PersistentLevel"]
         ["r.ShadowQuality"] = 5,
         --防止远处发光 3
         ["r.Shadow.DistanceScale"] = 0.64,
+        --远距离渲染 4
+        ["r.Shadow.RadiusThreshold"] = 0.05,
+        ["r.Shadow.MaxCSMResolution"] = 1024,
 
     },
 
@@ -1267,6 +1273,9 @@ MapOverrides["Level /Game/Map/PublicPool/PublicPool.PublicPool:PersistentLevel"]
         ["r.ShadowQuality"] = 4,
         --防止远处发光 3
         ["r.Shadow.DistanceScale"] = 0.64,
+        --远距离渲染 4
+        ["r.Shadow.RadiusThreshold"] = 0.05,
+        ["r.Shadow.MaxCSMResolution"] = 1024,
 
     },
 
@@ -1278,6 +1287,9 @@ MapOverrides["Level /Game/Map/PublicPool/PublicPool.PublicPool:PersistentLevel"]
         ["r.ShadowQuality"] = 4,
         --防止远处发光 3
         ["r.Shadow.DistanceScale"] = 0.64,
+        --远距离渲染 4
+        ["r.Shadow.RadiusThreshold"] = 0.05,
+        ["r.Shadow.MaxCSMResolution"] = 1024,
 
     },
 
